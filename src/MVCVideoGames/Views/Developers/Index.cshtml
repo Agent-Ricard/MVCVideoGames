@@ -1,0 +1,47 @@
+@model MVCVideoGames.Models.IndustryViewModels.DeveloperIndexData
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Games</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Developers) {
+    string selectedRow = "";
+    if (item.ID == (int?)ViewData["DeveloperID"])
+    {
+        selectedRow = "success";
+    }
+        <tr class="@selectedRow">
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @foreach(var game in item.VideoGames)
+                {
+                    @game.Title <br/>
+                }
+            </td>
+            <td>
+                <a asp-action="Index" asp-route-id="@item.ID">Select</a> |
+                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Details</a> | 
+                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

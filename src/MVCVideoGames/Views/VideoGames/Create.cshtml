@@ -1,0 +1,57 @@
+@model MVCVideoGames.Models.VideoGameViewModels.VideoGameCreateData
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+<form asp-action="Create">
+    <div class="form-horizontal">
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="VideoGame.Title" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="VideoGame.Title" class="form-control" />
+                <span asp-validation-for="VideoGame.Title" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="VideoGame.Genre" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="VideoGame.Genre" class="form-control" />
+                <span asp-validation-for="VideoGame.Genre" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="VideoGame.ReleaseDate" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="VideoGame.ReleaseDate" class="form-control" />
+                <span asp-validation-for="VideoGame.ReleaseDate" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="VideoGame.DeveloperID" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                @Html.DropDownListFor(vm => vm.VideoGame.DeveloperID,
+                    new SelectList(Model.Developers, "ID", "Name"))
+                <span asp-validation-for="VideoGame.DeveloperID" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
